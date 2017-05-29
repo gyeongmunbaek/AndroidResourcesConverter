@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'java-library-distribution'
+
+jar {
+    archiveName = "ResourcesConverter_v0.6.jar"
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+    manifest {
+        attributes 'Main-Class': 'com.sm.part.android.ResourceConverter', 'Class-Path': 'com.sm.part.android.'
+    }
+}
