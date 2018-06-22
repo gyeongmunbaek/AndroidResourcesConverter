@@ -1,5 +1,8 @@
-package com.sm.part.android;
+package kr.gyeongmunbaek;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
@@ -14,6 +17,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ResourceConverter {
 
@@ -40,7 +54,7 @@ public class ResourceConverter {
         mXMLFileManager = new DimenConverter();
         mImageResizer = new ImageResizer();
 
-        mMainFrame = new JFrame("Resources Conveter v0.7 - by Baek, Kong");
+        mMainFrame = new JFrame("Resources Conveter v1.0");
         JPanel lJPanel = new JPanel();
         JLabel lTypeLabel = new JLabel("Resources Type : ", JLabel.RIGHT);
         lJPanel.add(lTypeLabel);
@@ -262,7 +276,11 @@ public class ResourceConverter {
             }
             String lPath = getRootDirectory(pFile.getAbsolutePath());
             lPath += ("-" + mResolutionManager.getResolutionArray()[index]);
-            mImageResizer.createImageFile(lPath, pFile.getName());
+            String lFileName = pFile.getName();
+            if (Pattern.matches("^[0-9]+$", lFileName.substring(0, 1))) {
+                lFileName = "light_" + lFileName;
+            }
+            mImageResizer.createImageFile(lPath, lFileName);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.sm.part.android; /**
+package kr.gyeongmunbaek;
  * ReadXMLFile.java
  */
 

@@ -1,4 +1,4 @@
-package com.sm.part.android.image;
+package kr.gyeongmunbaek.image;
 
 public class Pair<E> {
     public E first;

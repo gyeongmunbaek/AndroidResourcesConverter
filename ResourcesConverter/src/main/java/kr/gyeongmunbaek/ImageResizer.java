@@ -1,4 +1,4 @@
-package com.sm.part.android;
+package kr.gyeongmunbaek;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -14,9 +14,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import com.sm.part.android.image.GraphicsUtilities;
-import com.sm.part.android.image.Pair;
-import com.sm.part.android.image.PatchInfo;
+import kr.gyeongmunbaek.image.GraphicsUtilities;
+import kr.gyeongmunbaek.image.Pair;
+import kr.gyeongmunbaek.image.PatchInfo;
 
 public class ImageResizer {
 

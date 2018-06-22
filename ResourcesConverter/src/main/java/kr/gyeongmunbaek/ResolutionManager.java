@@ -1,4 +1,4 @@
-package com.sm.part.android;
+package kr.gyeongmunbaek;
 
 public class ResolutionManager {
     private String[] mWidthArray = {
@@ -8,6 +8,7 @@ public class ResolutionManager {
             "w411dp",
             "w480dp",
             "w540dp",
+            "w560dp",
             "w600dp",
             "w800dp",
             "w960dp",

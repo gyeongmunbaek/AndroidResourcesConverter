@@ -1,5 +1,8 @@
-package com.sm.part.android.image;
+package kr.gyeongmunbaek.image;
 
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;

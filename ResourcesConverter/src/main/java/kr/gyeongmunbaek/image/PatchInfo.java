@@ -1,5 +1,6 @@
-package com.sm.part.android.image;
+package kr.gyeongmunbaek.image;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
