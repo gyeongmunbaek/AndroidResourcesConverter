@@ -252,17 +252,18 @@ public class ResourceConverter {
         for (int index = 0; index < mResolutionManager.getResolutionArray().length; index++) {
             float lRatio = mResolutionManager.getRatio(index);
             mXMLFileManager
-                    .convertDimenXMLFile(pFile.getAbsolutePath(), lRatio);
+                    .convertDimenXMLFile(pFile.getAbsolutePath(), lRatio, mResolutionManager.getFeatureText());
             String lPath = getRootDirectory(pFile.getAbsolutePath());
             lPath += ("-" + mResolutionManager.getResolutionArray()[index]);
+            mXMLFileManager.mergeDimenXMLFile(lPath + "/" + pFile.getName(), mResolutionManager.getFeatureText());
             mXMLFileManager.createXMLFile(lPath, pFile.getName());
         }
-        mXMLFileManager
-                .convertDimenXMLFile(pFile.getAbsolutePath(), 1.0f);
+        /* mXMLFileManager
+                .convertDimenXMLFile(pFile.getAbsolutePath(), 1.0f, mResolutionManager.getFeatureText());
         String lValuesPath = (getRootDirectory(pFile.getAbsolutePath()) + "\\" + pFile.getName());
         mEditor.append("\n\n\n" + lValuesPath + "\n");
-        mXMLFileManager.mergeDimenXMLFile(lValuesPath);
-        mXMLFileManager.createXMLFile(getRootDirectory(pFile.getAbsolutePath()), pFile.getName());
+        mXMLFileManager.mergeDimenXMLFile(lValuesPath, mResolutionManager.getFeatureText());
+        mXMLFileManager.createXMLFile(getRootDirectory(pFile.getAbsolutePath()), pFile.getName()); */
     }
 
     private void makeImageFiles(File pFile) {

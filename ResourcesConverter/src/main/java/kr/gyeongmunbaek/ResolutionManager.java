@@ -54,6 +54,11 @@ public class ResolutionManager {
         return Float.parseFloat(lSubString);
     }
     
+    public String getFeatureText() {
+    	int lDpIndex = mStandardWidth.indexOf("dp");
+    	return mStandardWidth.substring(0, lDpIndex);
+    }
+    
     private float getWidth(int pArrayIndex) {
         int lDpIndex = mWidthArray[pArrayIndex].indexOf("dp");
         String lSubString = mWidthArray[pArrayIndex].substring(1, lDpIndex);
