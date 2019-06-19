@@ -1,5 +1,6 @@
 package kr.gyeongmunbaek;
- * ReadXMLFile.java
+ /*
+ ReadXMLFile.java
  */
 
 import org.w3c.dom.Document;
@@ -30,7 +31,8 @@ import javax.xml.transform.stream.StreamResult;
 public class DimenConverter {
     Document mDocument = null;
 
-    public void convertDimenXMLFile(String pFileName, float pRatio) {
+    public void convertDimenXMLFile(String pFileName, float pRatio, String pFeatureName) {
+    	// test
         StringBuilder xmlData = new StringBuilder();
 
         try {
@@ -61,45 +63,56 @@ public class DimenConverter {
             Element device = document.getDocumentElement();
             NodeList items = device.getElementsByTagName("dimen");
 
+            Document newDocument = builder.newDocument();
+            Element newElmt = newDocument.createElement("resources");
+            newDocument.appendChild(newElmt);
+            
             for (int i = 0; i < items.getLength(); i++) {
                 Element lDimenElmnt = (Element) items.item(i);
                 Node lDimenNode = lDimenElmnt.getFirstChild();
+                String lName = lDimenElmnt.getAttribute("name");
                 String lValue = lDimenNode.getNodeValue();
                 String lNewValue = "";
                 float lDimen = 0.0f;
-                if (lValue.contains("dp") || lValue.contains("dip") || lValue.contains("px")) {
-                    String lFormat = "";
-                    if (lValue.contains("dp")) {
-                        lValue = lValue.replaceAll("dp", "");
-                        lFormat = "dp";
-                    } else if (lValue.contains("dip")) {
-                        lValue = lValue.replaceAll("dip", "");
-                        lFormat = "dip";
-                    } else if (lValue.contains("px")) {
-                        lValue = lValue.replaceAll("px", "");
-                        lFormat = "px";
-                    }
-                    // System.out.println("\n Value : " + lValue);
-                    lDimen = Float.parseFloat(lValue.trim());
-                    lDimen = lDimen * pRatio;
-                    
-                    if (lFormat.equals("px") && lDimen < 1.0f) {
-                        lDimen = 1.0f;
-                    }
-                    lNewValue = String.valueOf(lDimen) + lFormat;
-                } else if (lValue.contains("dimen")) {
-                    lNewValue = lValue;
+                if (lName.contains(pFeatureName)) {
+	                if (lValue.contains("dp") || lValue.contains("dip") || lValue.contains("px")) {
+	                    String lFormat = "";
+	                    if (lValue.contains("dp")) {
+	                        lValue = lValue.replaceAll("dp", "");
+	                        lFormat = "dp";
+	                    } else if (lValue.contains("dip")) {
+	                        lValue = lValue.replaceAll("dip", "");
+	                        lFormat = "dip";
+	                    } else if (lValue.contains("px")) {
+	                        lValue = lValue.replaceAll("px", "");
+	                        lFormat = "px";
+	                    }
+	                    // System.out.println("\n Value : " + lValue);
+	                    lDimen = Float.parseFloat(lValue.trim());
+	                    lDimen = lDimen * pRatio;
+	                    
+	                    if (lFormat.equals("px") && lDimen < 1.0f) {
+	                        lDimen = 1.0f;
+	                    }
+	                    lNewValue = String.valueOf(lDimen) + lFormat;
+	                } else if (lValue.contains("dimen")) {
+	                    lNewValue = lValue;
+	                }
+	                lDimenNode.setNodeValue(lNewValue);
+	                Element newNode = newDocument.createElement("dimen");
+	                newNode.setAttribute("name", lName);
+	                newNode.appendChild(newDocument.createTextNode(lNewValue));
+	                newElmt.appendChild(newNode);
                 }
-                lDimenNode.setNodeValue(lNewValue);
             }
-            mDocument = document;
+            mDocument = newDocument;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void mergeDimenXMLFile(String pSrcFileName) {
+    public void mergeDimenXMLFile(String pSrcFileName, String pFeatureName) {
         StringBuilder xmlData = new StringBuilder();
 
         try {
@@ -129,12 +142,13 @@ public class DimenConverter {
             Document document = builder.parse(is);
             Element device = document.getDocumentElement();
             NodeList items = device.getElementsByTagName("dimen");
-
+            
             for (int i = 0; i < items.getLength(); i++) {
                 Element lDimenElmnt = (Element) items.item(i);
                 Node lDimenNode = lDimenElmnt.getFirstChild();
+                String lName = lDimenElmnt.getAttribute("name");
                 String lValue = lDimenNode.getNodeValue();
-                if (lValue.contains("dp") || lValue.contains("dip") || lValue.contains("dimen")) {
+                if (lName.contains(pFeatureName) && (lValue.contains("dp") || lValue.contains("dip") || lValue.contains("dimen") || lValue.contains("px"))) {
                     // lDimenElmnt.removeChild(lDimenNode);
                 } else {
                     System.out.println("lDimenNode : " + lDimenNode.toString());
